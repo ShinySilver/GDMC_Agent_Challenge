@@ -1,0 +1,16 @@
+name: GdmcAgentPlugin
+main: com.gdmc.core.AgentPlugin
+softdepend: [Citizens]
+version: 1.0
+api-version: 1.19
+commands:
+    agent-summon:
+        description: TBD
+        usage: /agent-summon x y z *args
+        aliases: [gdmc-summon]
+        permission: gdmc.admin
+permissions:
+    gdmc.admin:
+        description: Allows running all the GDMC API related commands.
+        default: op
+        
