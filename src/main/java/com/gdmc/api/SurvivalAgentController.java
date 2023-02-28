@@ -1,61 +1,26 @@
-package com.gdmc;
+package com.gdmc.api;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-import com.gdmc.core.ControllerTrait;
 
-import net.md_5.bungee.api.ChatColor;
+import net.citizensnpcs.api.npc.NPC;
 
 /**
- * An abstract player-type controllable agent.
+ * A survival mode agent implementation with survival building, basic inventory,
+ * combat and food support.
  * 
- * @author silver
+ * If enabled in the configuration files, the agents will be targeted by
+ * monsters, will have to forage and mine for resources and food, and will need
+ * a bed to sleep.
  */
-public abstract class AbstractAgentController extends ControllerTrait {
+public abstract class SurvivalAgentController extends CreativeAgentController {
 
-	private String agentName;
-	private static int agentCount = 0;
-
-	/**
-	 * Create an agent controller, to be assigned to a citizen NPC. Will be called
-	 * by the server.
-	 * 
-	 * The agent will be assigned a name under the following format:
-	 * Agent#%agent_id% with %agent_id% being the current number of agent plus one.
-	 */
-	protected AbstractAgentController() {
-		this("Agent#" + (++agentCount));
+	public SurvivalAgentController(NPC npc) {
+		super(npc);
 	}
-
-	/**
-	 * Create an agent controller with a name, to be assigned to a citizen NPC. Will
-	 * be called by the server.
-	 */
-	protected AbstractAgentController(String agentName) {
-		super();
-		this.agentName = agentName;
-	}
-
-	/**
-	 * Called every tick
-	 */
-	@Override
-	public abstract void run();
-
-	/**
-	 * Called just after the NPC is spawned.
-	 */
-	@Override
-	public abstract void onSpawn();
-
-	/**
-	 * Called just before the NPC entity is despawned.
-	 */
-	@Override
-	public abstract void onDespawn();
 
 	//////////////////////////////////////////////////////////////////////////////
 	// Inventory
@@ -106,6 +71,14 @@ public abstract class AbstractAgentController extends ControllerTrait {
 	 * 
 	 * @param stack
 	 */
+	public void eat(ItemStack stack) {
+
+	}
+
+	/**
+	 * 
+	 * @param stack
+	 */
 	public void drop(ItemStack stack) {
 
 	}
@@ -124,7 +97,6 @@ public abstract class AbstractAgentController extends ControllerTrait {
 	 * @param blockPos
 	 */
 	public void storeToContainer(ItemStack stack, Location blockPos) {
-
 	}
 
 	/**
@@ -145,31 +117,33 @@ public abstract class AbstractAgentController extends ControllerTrait {
 		return null;
 	}
 
-	//////////////////////////////////////////////////////////////////////////////
-	// Chat Interaction / Debug
-	//////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Place a block at the given position.
+	 * 
+	 * @param m
+	 * @param location
+	 */
+	public void placeBlock(Material m, Location location) {
 
-	public void say(String message) {
-		Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "[" + agentName + "]: " + ChatColor.RESET + message);
 	}
 
-	//////////////////////////////////////////////////////////////////////////////
-	// Interaction
-	//////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Break the block at the given position. The item will loot.
+	 * 
+	 * @param location
+	 */
+	public void breakBlock(Location location) {
 
-	// place blocks / break blocks
-	// move
-	// attack
+	}
 
-	//////////////////////////////////////////////////////////////////////////////
-	// Perception
-	//////////////////////////////////////////////////////////////////////////////
-
-	// sense nearby entities
-	// sense nearby agent
-	// sense nearby blocks
-	// sense nearby interactive blocks
-	// sense nearby biomes
-	// sense nearby height map
-
+	/**
+	 * Break the block at the given position, and pickup the item(s) automatically. In
+	 * the case of liquids, an empty water bucket will be used.
+	 * 
+	 * @param location
+	 * @return the items that were picked up
+	 */
+	public ItemStack[] harvestBlock(Location location) {
+		return null;
+	}
 }

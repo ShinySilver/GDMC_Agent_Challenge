@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.EntityType;
 
-import com.gdmc.AgentControllerRegister;
+import com.gdmc.api.AgentControllerRegister;
 import com.gdmc.core.AgentPlugin;
 import com.gdmc.core.ControllerTrait;
 

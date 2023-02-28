@@ -1,9 +1,13 @@
-package com.gdmc;
+package com.gdmc.api;
 
 import java.util.ArrayList;
 
 import com.gdmc.core.AgentPlugin;
 
+/**
+ * The agent class register. An agent controller class must be registered here
+ * for it to be summonable in the world using the agent-summon command.
+ */
 public class AgentControllerRegister {
 	private ArrayList<String> controllers = new ArrayList<>();
 
@@ -20,20 +24,21 @@ public class AgentControllerRegister {
 	 * 
 	 * @param agentController the class to register
 	 */
-	public void register(Class<? extends AbstractAgentController> agentController) {
+	public void register(Class<? extends CreativeAgentController> agentController) {
 		String name = agentController.getSimpleName().split("\\$")[1]; // TODO Find another way to do that
 		if (controllers.contains(name)) {
-			AgentPlugin.getInstance().getLogger()
-					.severe("Scripts in the python folder tried to register \"" + name
-							+ "\" more than once. It's most likely a mistake, rename your classes!");
+			AgentPlugin.getInstance().getLogger().severe("Scripts in the python folder tried to register \"" + name
+					+ "\" more than once. It's most likely a mistake, rename your classes!");
 		} else {
 			controllers.add(name);
 		}
 	}
 
 	/**
-	 * Called by the server to know about the different controllers available. TODO:
-	 * create a data class, and store information about the constructor parameters.
+	 * Called by the server to know about the different controllers available.
+	 * 
+	 * TODO: create a data class, and store information about the constructor
+	 * parameters.
 	 * 
 	 * @return the list of available class names
 	 */

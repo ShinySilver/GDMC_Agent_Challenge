@@ -14,9 +14,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import org.python.util.PythonInterpreter;
 
-import com.gdmc.AgentControllerRegister;
+import com.gdmc.api.AgentControllerRegister;
 import com.gdmc.commands.AgentSummonCommand;
 
+/**
+ * The core of the plugin. An instance of this class is created by Spigot on server startup.
+ * 
+ * @author silver
+ */
 public class AgentPlugin extends JavaPlugin implements Listener {
 	private static AgentPlugin instance;
 	private AgentControllerRegister register;
