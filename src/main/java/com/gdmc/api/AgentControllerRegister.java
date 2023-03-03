@@ -24,7 +24,7 @@ public class AgentControllerRegister {
 	 * 
 	 * @param agentController the class to register
 	 */
-	public void register(Class<? extends CreativeAgentController> agentController) {
+	public void register(Class<? extends BasicAgentController> agentController) {
 		String name = agentController.getSimpleName().split("\\$")[1]; // TODO Find another way to do that
 		if (controllers.contains(name)) {
 			AgentPlugin.getInstance().getLogger().severe("Scripts in the python folder tried to register \"" + name

@@ -6,8 +6,6 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import net.citizensnpcs.api.npc.NPC;
-
 /**
  * A survival mode agent implementation with survival building, basic inventory,
  * combat and food support.
@@ -16,11 +14,7 @@ import net.citizensnpcs.api.npc.NPC;
  * monsters, will have to forage and mine for resources and food, and will need
  * a bed to sleep.
  */
-public abstract class SurvivalAgentController extends CreativeAgentController {
-
-	public SurvivalAgentController(NPC npc) {
-		super(npc);
-	}
+public abstract class SurvivalAgentController extends BasicAgentController {
 
 	//////////////////////////////////////////////////////////////////////////////
 	// Inventory
@@ -118,32 +112,24 @@ public abstract class SurvivalAgentController extends CreativeAgentController {
 	}
 
 	/**
-	 * Place a block at the given position.
+	 * Place a block at the given location.
 	 * 
 	 * @param m
 	 * @param location
 	 */
+	@Override
 	public void placeBlock(Material m, Location location) {
-
+		location.getBlock().setType(m);
 	}
 
 	/**
-	 * Break the block at the given position. The item will loot.
+	 * Break a block at the given location. Feel free to call pickup() on the
+	 * resulting items :)
 	 * 
 	 * @param location
 	 */
-	public void breakBlock(Location location) {
-
-	}
-
-	/**
-	 * Break the block at the given position, and pickup the item(s) automatically. In
-	 * the case of liquids, an empty water bucket will be used.
-	 * 
-	 * @param location
-	 * @return the items that were picked up
-	 */
-	public ItemStack[] harvestBlock(Location location) {
-		return null;
+	@Override
+	public ItemStack[] breakBlock(Location location) {
+		return super.breakBlock(location);
 	}
 }

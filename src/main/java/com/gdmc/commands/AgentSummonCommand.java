@@ -44,7 +44,7 @@ public class AgentSummonCommand implements CommandExecutor, TabCompleter {
 		String npcType = args[0];
 		if (Arrays.stream(AgentPlugin.getInstance().getRegister().getControllers()).anyMatch(npcType::equals)) {
 			NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, "");
-			npc.addTrait(ControllerTrait.fromPython(npcType,
+			npc.addTrait(new ControllerTrait(npcType,
 					Arrays.copyOfRange(args, Math.max(args.length, 4), args.length)));
 			npc.spawn(new Location(Bukkit.getWorlds().get(0), x, y, z));
 			sender.sendMessage(ChatColor.GRAY + "NPC spawned!");
